@@ -1,0 +1,14 @@
+/* HeaderComponent's private CSS styles */
+.cabecera {
+    height: 80px;
+    width: 100%;
+    background-color: burlywood;
+}
+
+.cabecera-logo {
+    padding-top: 25px;
+    padding-left: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    color: #191970;
+}

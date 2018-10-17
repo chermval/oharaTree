@@ -1,0 +1,45 @@
+<div class="container">
+  
+  <h3>Buscador</h3>
+  
+  <form (ngSubmit)="onSubmit()" #bookForm="ngForm">
+    <div class="form-group">
+      <label for="searchBookTitle">Titulo</label>
+      <input type="text" class="form-control" id="searchBookTitle"
+      [(ngModel)]="searchBookTitle" name="searchBookTitle" required>
+    </div>
+
+    <button type="submit" class="btn btn-success">Buscar Libro</button>
+  </form>
+</div>
+
+<br/>
+
+<div *ngIf="isSubmmit">
+
+  <table class="tabla-libros">
+    <tr class="tabla-libros-cabezera">
+      <th>Titulo</th>
+      <th>Autor</th>
+    </tr>
+
+    <tr *ngFor="let book of booksResponse.items; let i=index;">
+        <td>
+          <span> 
+            {{book.volumeInfo.title}} 
+          </span>
+          <span *ngIf="book.volumeInfo.subtitle !== undefined"> 
+            : {{book.volumeInfo.subtitle}}
+          </span>
+        </td>
+
+        <td>
+          <span *ngIf="book.volumeInfo.authors !== undefined"> 
+            {{book.volumeInfo.authors[0]}}
+          </span>
+        </td>
+    </tr> 
+    
+  </table>
+
+</div>
