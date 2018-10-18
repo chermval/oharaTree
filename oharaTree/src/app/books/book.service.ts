@@ -18,7 +18,7 @@ export class BookService {
   
   constructor(private http: HttpClient) { }
 
-
+  //Call to Google Book API
   getBook(title: string): Observable<any> {
     const url = endpointUrl+''+title;
     
@@ -26,12 +26,13 @@ export class BookService {
       map(this.getDataFromResponse)
     );
 
-}
+  }
   
-private getDataFromResponse(res: Response) {
-  let body = res;
-  return body || { };
-}
+  //Get data from Response of Google Book API
+  private getDataFromResponse(res: Response) {
+    let body = res;
+    return body || { };
+  }
  
 
 }

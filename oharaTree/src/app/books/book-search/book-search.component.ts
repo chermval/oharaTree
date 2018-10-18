@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../book.service';
+import { Book } from '../Book';
 
 @Component({
   selector: 'app-book-search',
@@ -9,12 +10,13 @@ import { BookService } from '../book.service';
 export class BookSearchComponent implements OnInit {
 
   public searchBookTitle: string; 
-  public booksResponse:any;
   public isSubmmit:boolean;
+  public selectedHero: string;
+  public booksResponse: any; 
 
   constructor(public bookRest:BookService) { 
     this.isSubmmit=false;
-    this.booksResponse="";
+    this.booksResponse = "";
   }
 
   ngOnInit() {
@@ -25,17 +27,21 @@ export class BookSearchComponent implements OnInit {
     this.getRestBookItems(this.searchBookTitle);
   }
 
-  // Get book items from REST API
+  // Get book items from Google Book REST API
   getRestBookItems( searchBookTitle ) {
-    console.log("getRestBookItems");
-    this.booksResponse = "";
+
     this.bookRest.getBook(searchBookTitle).subscribe((data: {}) => {
       console.log(data);
+
       this.booksResponse = data;
     });
   }
 
-
+  // Get book selected
+  onSelectBook(book: any): void {
+    this.selectedHero = book;
+    console.log(book);
+  }
 
 
 }
