@@ -15,24 +15,24 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class BookService {
-  
+
   constructor(private http: HttpClient) { }
 
   //Call to Google Book API
   getBook(title: string): Observable<any> {
     const url = endpointUrl+''+title;
-    
+
     return this.http.get<any>(url).pipe(
       map(this.getDataFromResponse)
     );
 
   }
-  
+
   //Get data from Response of Google Book API
   private getDataFromResponse(res: Response) {
     let body = res;
     return body || { };
   }
- 
+
 
 }
