@@ -31,5 +31,8 @@ export class BookMantComponent implements OnInit {
     console.log(this.book);
   }
 
-
+  //Get selected format of book
+  formatChanged(selectedFormatValue:string){
+    this.book.format = selectedFormatValue;
+    }
 }

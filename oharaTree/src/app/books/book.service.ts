@@ -44,5 +44,9 @@ export class BookService {
     this.bookInfo.next( book );
   }
 
+  //create book on database
+  createBook(){
+
+  }
 
 }

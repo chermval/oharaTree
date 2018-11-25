@@ -1,6 +1,6 @@
 <span  *ngIf="book.title !== undefined" >
 
-<form (ngSubmit)="onSubmit()" #bookForm="ngForm" >
+<form (ngSubmit)="onSubmit()" #bookCreateForm="ngForm" >
   <div class="form-group">
 
     <label for="displayBookIsbn">ISBN</label>
@@ -16,7 +16,9 @@
     value="{{book.autor}}" [(ngModel)]="book.autor" name="displayBookAutor" required>
 
     <label for="displayBookFormat">Formato</label>
-    <select class="form-control" id="displayBookFormat" required>
+    <select class="form-control" id="displayBookFormat"
+    (change)="formatChanged($event.target.value)" [(ngModel)]="book.format"
+    [ngModelOptions]="{standalone: true}" required>
         <option *ngFor="let format of formatos"
         [value]="format" >{{format}}</option>
     </select>
