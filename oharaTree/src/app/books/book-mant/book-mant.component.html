@@ -1,3 +1,37 @@
-<p>
-  info libro 
-</p>
+<span  *ngIf="book.title !== undefined" >
+
+<form (ngSubmit)="onSubmit()" #bookForm="ngForm" >
+  <div class="form-group">
+
+    <label for="displayBookIsbn">ISBN</label>
+    <input type="text" class="form-control" id="displayBookIsbn"
+    value="{{book.isbn}}" name="displayBookIsbn" required readonly>
+
+    <label for="displayBookTitle">Titulo</label>
+    <input type="text" class="form-control" id="displayBookTitle"
+    value="{{book.title}}" [(ngModel)]="book.title" name="displayBookTitle" required>
+
+    <label for="displayBookAutor">Autor</label>
+    <input type="text" class="form-control" id="displayBookAutor"
+    value="{{book.autor}}" [(ngModel)]="book.autor" name="displayBookAutor" required>
+
+    <label for="displayBookFormat">Formato</label>
+    <select class="form-control" id="displayBookFormat" required>
+        <option *ngFor="let format of formatos"
+        [value]="format" >{{format}}</option>
+    </select>
+
+    <label for="displayBookCollection">Coleccion</label>
+    <input type="text" class="form-control" id="displayBookCollection"
+    value="{{book.collection}}" [(ngModel)]="book.collection" name="displayBookCollection" >
+
+
+  </div>
+
+  <button type="submit" class="btn btn-success">Guardar Libro</button>
+</form>
+
+</span>
+
+
+

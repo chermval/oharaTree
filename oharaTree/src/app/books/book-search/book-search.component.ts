@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { BookService } from '../book.service';
 import { Book } from '../Book';
-import { KeyRegistry } from '@angular/core/src/di/reflective_key';
 
 @Component({
   selector: 'app-book-search',
@@ -12,12 +12,13 @@ export class BookSearchComponent implements OnInit {
 
   public searchBookTitle: string;
   public isSubmmit:boolean;
-  public selectedHero: string;
+  public bookDataToForm: Book;
   public booksResponse: any;
 
-  constructor(public bookRest:BookService) {
+  constructor(public bookService:BookService) {
     this.isSubmmit=false;
     this.booksResponse = "";
+    this.bookDataToForm = new Book();
   }
 
   ngOnInit() {
@@ -31,32 +32,27 @@ export class BookSearchComponent implements OnInit {
   // Get book items from Google Book REST API
   getRestBookItems( searchBookTitle ) {
 
-    this.bookRest.getBook(searchBookTitle).subscribe((data: {}) => {
-      console.log(data);
-
+    this.bookService.getBook(searchBookTitle).subscribe((data: {}) => {
       this.booksResponse = data;
     });
   }
 
   // Get data from book selected
-  onSelectBook(book: any): Book {
-    this.selectedHero = book;
-    console.log(book);
-
-    var bookData: Book ;
+  onSelectBook(book: any) {
 
     var volumeInfo =  Object.values(book)[4];
-
-    console.log( volumeInfo );
+    var title="";
+    var autor="";
+    var isbn="";
 
     Object.keys(volumeInfo).forEach(function (key) {
       //
       if ( key == "title" ){
-        bookData.title = volumeInfo[key]
+        title = volumeInfo[key]
       }
 
       if ( key == "authors" && volumeInfo[key][0] != undefined){
-        bookData.autor =  volumeInfo[key][0];
+        autor =  volumeInfo[key][0];
 
       }
 
@@ -65,7 +61,7 @@ export class BookSearchComponent implements OnInit {
         volumeInfo[key].forEach(function(codeBook) {
 
           if ( codeBook.type == "ISBN_13" ){
-            bookData.isbn = codeBook.identifier;
+            isbn = codeBook.identifier;
           }
 
         });
@@ -74,7 +70,7 @@ export class BookSearchComponent implements OnInit {
 
     });
 
-    return bookData;
+    this.bookService.setBookInfo( new Book({title:title, autor:autor, isbn:isbn}) );
   }
 
 

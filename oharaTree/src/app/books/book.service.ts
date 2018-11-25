@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, BehaviorSubject , of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
+import { Book } from './Book';
 
 
 const endpointUrl = 'https://www.googleapis.com/books/v1/volumes?q=';
@@ -15,6 +16,9 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class BookService {
+
+  private bookInfo = new BehaviorSubject<Book>(new Book() );
+  currentBookInfo = this.bookInfo.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -32,6 +36,12 @@ export class BookService {
   private getDataFromResponse(res: Response) {
     let body = res;
     return body || { };
+  }
+
+
+  //Set info of book selected by user
+  setBookInfo(book: Book){
+    this.bookInfo.next( book );
   }
 
 

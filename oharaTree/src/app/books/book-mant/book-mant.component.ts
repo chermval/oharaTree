@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription} from 'rxjs';
 
 import { BookService } from '../book.service';
 import { Book } from '../Book';
@@ -11,14 +12,24 @@ import { Book } from '../Book';
 })
 export class BookMantComponent implements OnInit {
 
-  public book:Book;
+  public book: Book ;
+  formatos = ['Digital', 'Fisico'];
 
-  constructor(public bookRest:BookService) { }
 
-  ngOnInit() {
+  constructor(public bookService:BookService) {
   }
 
+  ngOnInit() {
+    this.bookService.currentBookInfo.subscribe(info => {
+      this.book = info;
+    });
 
+  }
+
+  onSubmit() {
+    console.log("libro a guardar");
+    console.log(this.book);
+  }
 
 
 }

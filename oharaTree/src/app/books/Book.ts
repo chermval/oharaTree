@@ -5,4 +5,9 @@ export class Book {
     public format: string;
     public type: string;
     public collection: string;
+
+
+    public constructor(init?:Partial<Book>) {
+      Object.assign(this, init);
+    }
   }
